@@ -1,11 +1,11 @@
-package peaksoft.repository.repositoryInterface;
-
+package peaksoft.service;
 
 import peaksoft.model.Course;
 
 import java.util.List;
 
-public interface CourseRepository {
+public interface CourseService {
+
     Course saveCourse(Course course);
 
     void removeCourseById(Long id);
@@ -14,5 +14,5 @@ public interface CourseRepository {
 
     List<Course> getAllCourse();
 
-    void updateCourse( Course course);
+    void updateCourse(Course course);
 }

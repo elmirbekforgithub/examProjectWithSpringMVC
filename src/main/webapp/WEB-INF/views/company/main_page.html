@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+<table style="margin-left: 500px; margin-top: 60px;">
+
+    <tr>
+        <th style="color: blue">Id</th>
+        <th style="color: blue">CompanyName</th>
+        <th style="color: blue">LocatedCountry</th>
+
+    </tr>
+    <tbody th:each="company: ${companies}">
+    <tr>
+        <td style="border-radius: 8px"><p  th:text="${company.getId()}"></p></td>
+        <td  ><p th:text="${company.getCompanyName()}"></p></td>
+        <td><p th:text="${company.getLocatedName()}"></p></td>
+        <td style="border-radius: 8px">
+            <a style="color: blue" th:href="@{/courses/(companyId=${company.id})}">Course</a>
+        </td>
+        <td style="border-radius: 8px">
+            <a style="color: blue" th:href="@{/getGroups(companyId=${company.id})}">Groups</a>
+        </td>
+        <td style="border-radius: 8px">
+            <a  th:href="@{/{id}/edit(id=${company.getId()})}">
+                <input style="color: blue" type="submit" value="Update">
+            </a>
+        </td>
+        <td style="border-radius: 8px">
+            <form   th:method="DELETE" th:action="@{/{id}(id=${company.getId()})}">
+                <input style="color: blue" class="button" type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</div>
+<hr>
+<a  href="/newCompany">Create new Company</a>
+
+</body>
+</html>

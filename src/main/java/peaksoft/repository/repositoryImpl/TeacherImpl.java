@@ -4,35 +4,45 @@ import org.springframework.stereotype.Repository;
 import peaksoft.model.Teacher;
 import peaksoft.repository.repositoryInterface.TeacherRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 @Transactional
 public class TeacherImpl implements TeacherRepository {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public Teacher saveTeacher(Teacher teacher) {
-        return null;
+        entityManager.persist(teacher);
+        return teacher;
     }
 
 
     @Override
-    public void removeTeacherById(Long id) {
-
+    public void removeTeacherById(Teacher teacher) {
+        entityManager.remove(entityManager.contains(teacher) ? teacher : entityManager.merge(teacher));
     }
 
     @Override
     public Teacher getById(Long id) {
-        return null;
+        return entityManager.find(Teacher.class,id);
     }
 
     @Override
     public List<Teacher> getAllTeacher() {
-        return null;
+        return entityManager.createQuery("select t from Teacher t",Teacher.class).getResultList();
     }
 
     @Override
-    public void updateTeacher(Long id, Teacher teacher) {
-
+    public void updateTeacher(Long id ,Teacher teacher) {
+        Teacher teacher1 = getById(id);
+        teacher1.setFirstName(teacher.getFirstName());
+        teacher1.setLastName(teacher.getLastName());
+        teacher1.setEmail(teacher.getEmail());
+        entityManager.merge(teacher);
     }
 }

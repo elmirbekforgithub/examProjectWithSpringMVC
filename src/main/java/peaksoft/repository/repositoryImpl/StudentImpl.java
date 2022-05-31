@@ -4,33 +4,45 @@ import org.springframework.stereotype.Repository;
 import peaksoft.model.Student;
 import peaksoft.repository.repositoryInterface.StudentRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 @Repository
 @Transactional
 public class StudentImpl implements StudentRepository {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public Student saveStudent(Student student) {
-        return null;
+        entityManager.persist(student);
+        return student;
     }
 
     @Override
     public void removeStudentById(Long id) {
 
+        entityManager.remove(getById(id));
     }
 
     @Override
     public Student getById(Long id) {
-        return null;
+        return entityManager.find(Student.class,id);
     }
 
     @Override
     public List<Student> getAllStudent() {
-        return null;
+        return entityManager.createQuery("select s from Student s",Student.class).getResultList();
     }
 
     @Override
     public void updateStudent(Long id, Student student) {
-
+        Student student1 = getById(id);
+        student1.setFirstName(student.getFirstName());
+        student1.setLastName(student.getLastName());
+        student1.setEmail(student.getEmail());
+        student1.setStudyFormat(student.getStudyFormat());
+        entityManager.merge(student);
     }
 }

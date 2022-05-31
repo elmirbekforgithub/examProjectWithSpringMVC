@@ -1,0 +1,54 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+<table style="margin-left: 500px; margin-top: 60px;">
+    <tr>
+        <th style="color: blue">Id</th>
+        <th style="color: blue">CourseName</th>
+        <th style="color: blue">Duration</th>
+        <th style="color: blue">Teachers</th>
+        <th style="color: blue">Update</th>
+        <th style="color: blue">Delete</th>
+    </tr>
+    <tbody th:each="courses : ${course}">
+    <tr>
+        <td style="border-radius: 8px;" th:text="${courses.getId()}"> </td>
+        <td style="border-radius: 8px;" th:text="${courses.getCourseName()}"> </td>
+        <td style="border-radius: 8px;" th:text="${courses.getDuration()}"> </td>
+        <td style="border-radius: 8px">
+            <a th:href="@{/teachers(courseId=${courses.id})}" style="color: blue">Teachers</a>
+        </td>
+        <td style="border-radius: 8px">
+            <a th:href="@{/courses/{id}/update(id=${courses.getId()},companyId=${param.companyId})}">
+                <button style="color: blue">Update</button>
+            </a>
+        </td>
+        <td style="border-radius: 8px">
+            <form th:method="DELETE"
+                  th:action="@{/courses/{id}/delete(id=${courses.getId()},companyId=${param.companyId})}">
+                <button style="color: blue">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<a style=" margin-left: 500px;margin-top: 3px; width: 330px; height: 20px;border-radius: 14px; border: blue solid 2px;padding: 15px; color: blue "
+   th:href="@{/courses/newCourse/(companyId=${param.companyId})}">Create new Course</a>
+<hr>
+<a style=" margin-left: 500px;margin-top: 60px; width: 300px; height: 10px;padding: 15px; color: blue "
+   href="/">Main</a>
+
+</body>
+</html>

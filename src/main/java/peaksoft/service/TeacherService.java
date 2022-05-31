@@ -1,11 +1,10 @@
-package peaksoft.repository.repositoryInterface;
+package peaksoft.service;
 
 import peaksoft.model.Teacher;
 
 import java.util.List;
 
-public interface TeacherRepository {
-
+public interface TeacherService {
     Teacher saveTeacher(Teacher teacher);
 
     void removeTeacherById(Teacher teacher);

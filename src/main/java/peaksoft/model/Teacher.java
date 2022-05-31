@@ -23,5 +23,7 @@ public class Teacher {
     private String email;
     @Column(name = "lastName")
     private String lastName;
-
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

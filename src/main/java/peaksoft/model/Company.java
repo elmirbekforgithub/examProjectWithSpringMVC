@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
 @Getter@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,5 +21,9 @@ public class Company {
     private String companyName;
     @Column(name = "located_name")
     private String locatedName;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "company")
+    public List<Course> course;
+
 
 }

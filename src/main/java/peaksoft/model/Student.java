@@ -26,4 +26,9 @@ public class Student {
     private String lastName;
     @Column(name = "study_format")
     private StudyFormat studyFormat;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "group_id")
+    private Group groups;
+
 }
